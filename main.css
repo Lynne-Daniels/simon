@@ -1,0 +1,129 @@
+div{
+	border: 1px black solid;
+}
+.game-case{
+	height: 500px;
+	width: 500px;
+	display: inline-block;
+	margin: 0px;
+	font-size: 0px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+	border-radius: 100%;
+	
+}
+.button{
+	height: 210px;
+	width: 210px;
+	display: inline-block;
+	border: 20px solid black;
+	margin: 0px;
+}
+.green{
+	background: green;
+	border-top-left-radius: 100%;
+}
+.red{
+	background: red;
+	border-top-right-radius: 100%;
+}
+.yellow{
+	background: yellow;
+	border-bottom-left-radius: 100%;
+}
+.blue{
+	background: blue;
+	border-bottom-right-radius: 100%;
+}
+.center{
+	font-size: 14px;
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	border-radius: 100%;
+	width: 250px;
+	height: 250px;
+	background: white;
+	z-index: 2;
+	border: 4px solid black;
+	
+}
+.simon{
+	z-index: 3;
+	font-size: 36px;
+	font-weight: 800;
+	text-align: center;
+	padding: 5px 0px 0px 5px;
+	margin: 5px 5px 0px 5px;
+	font-family: 'Bungee Shade', cursive;
+}
+.button-item{
+	height: 30px;
+	width: 28%;
+	display: inline-block;
+	margin: 11px 2px 2px 2px;
+}
+.on-off{
+	display: inline-block;
+}
+.outer-switch{
+	width : 50%;
+	height: 30px;
+	display: inline-block;
+}
+.count{
+	background: #280a03;
+	height: 40px;
+	width: 40px;
+	margin: 0px 4px 0px 4px;
+	font-family: 'Bungee', cursive;
+	color: red;
+	text-align: center;
+}
+.rnd-btn{
+	height: 14px;
+	width: 14px;
+	border-radius: 100%;
+	margin: 10px;
+	padding: 3px 0px 0px 0px;
+	border: 2px solid black;
+}
+.indicator{
+	height: 5px;
+	width: 5px;
+	background: red;
+	border-radius: 100%;
+	margin-left: 17px;
+}
+.button-row{
+	padding: 0px 2px 1px 12px;
+	font-family: 'Bungee', cursive;
+}
+.strict{
+	background: yellow;
+}
+.start{
+	background: red;
+}
+.on-off{
+	padding: 5px 0px 0px 0px;
+	margin-left: 33%;
+	font-family: 'Bungee', cursive;
+
+}
+.outer-switch{
+	height: 12px;
+	width: 40px;
+	background: gray;
+}
+.inner-switch{
+	height: 9px;
+	width: 9px;
+	background: dodgerblue;
+	float: right;
+}
+
+

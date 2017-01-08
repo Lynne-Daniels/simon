@@ -19,7 +19,7 @@ liteColor = {
 };
 
 var sequence = [], 
-	count = 1,
+	count = 4,
 	timetest,
 	userSequence = [];
 
@@ -30,10 +30,10 @@ function lights(sequence){ //input array, allowed vals are 'red', 'blue', 'yello
 			//sound = color + 'Sound';
 			//console.log(sound);
 		//blueSound.play();
-		//console.log(liteColor[color].sound);
+		console.log(liteColor[color]);
 		liteColor[color].sound.play();
 		panel.style.background = liteColor[color].lit;
-		timetest = setTimeout(function(){panel.style.background = liteColor[color].dark;},1000);
+		timetest = setTimeout(function(){panel.style.background = liteColor[color].dark;},800);
 	}
 	
 	for (item in sequence){
@@ -102,22 +102,40 @@ function initializeGame(){
 }
 
 function playPattern(howMany){ //where howMany is the portion of the sequence.  usu is count in global scope.
+	console.log('here');
 	lights(sequence.slice(0,howMany));
-
-}
-
-function failedUserPattern(){
+	var timer = setTimeout(timesUp, 10000); //TODO write timeup func to handle both match or no match
+	var tester = setInterval(getUserSequence, 100);
+	function getUserSequence(){
+		console.log(userSequence);
+		if (userSequence.join(',') === sequence.join(',')){
+			clearInterval(tester);
+			clearInterval(timer);
+			console.log(userSequence);
+			timesUp();
+		}
+	}
+	function timesUp(){
+		if (userSequence.join(',') === sequence.join(',')){
+			console.log('sucess!!!!');
+		}else {
+			console.log('times up');
+			clearInterval(tester);
+			clearInterval(timer);
+		}
+	}
 	//playPattern(2);//TODO if strict do differnt
-	console.log('here i am');
+	//console.log('here i am');
+
 }
+
+
 //var getUserSequence = setTimeout(function(){failedUserPattern();}, 5000);
 //setTimeout(failedUserPattern, 10000);
 
 initializeGame();
-playPattern(10);
+playPattern(4);
 //getUserSequence();
-
-
 
 		//TODO make comparisons etc, timer stuff
 		//start timer for 3 seconds
@@ -128,7 +146,12 @@ playPattern(10);
 	
 
 	
-	
+//Need this to compare arrays
+//thanks http://stackoverflow.com/questions/6229197/how-to-know-if-two-arrays-have-the-same-values
+
+
+
+
 	
 	
 	

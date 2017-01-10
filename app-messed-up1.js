@@ -32,7 +32,7 @@ function lights(sequence){ //input array, allowed vals are 'red', 'blue', 'yello
 			//sound = color + 'Sound';
 			//console.log(sound);
 		//blueSound.play();
-		//console.log(liteColor[color]);
+		console.log(liteColor[color]);
 		liteColor[color].sound.play();
 		panel.style.background = liteColor[color].lit;
 		timetest = setTimeout(function(){panel.style.background = liteColor[color].dark;},800);
@@ -42,11 +42,12 @@ function lights(sequence){ //input array, allowed vals are 'red', 'blue', 'yello
 		(function(item){//not the same item, this is a closure
 			setTimeout(function(){
 				light(sequence[item]);
-			},(item +1)*200);// Probably not best practice, works on my pc, but others?
-			//console.log(item + sequence[item]);
+			},(item +1)*150);// Probably not best practice, works on my pc, but others?
+			console.log(item + sequence[item]);
 		})(item);
 	}
 }
+
 
 function makeSequence(num){
 	var color,
@@ -55,61 +56,34 @@ function makeSequence(num){
 		colors = (['red', 'blue', 'yellow', 'green']);
 	for (var i = 0; i < num; i++){
 		rnd = Math.floor(Math.random()*4);
-		//console.log(rnd);
+		console.log(rnd);
 		sequence.push(colors[rnd]);
 	}
 	return sequence;
 }
-function initializeGame(){
-	sequence = makeSequence(3);//TODO change to 20 after done testing
-	count = 1;  //TODO change to 20 or one something else later
-	userSequence = [];
-	//console.log(sequence);
-	//console.log(userSequence);
-}
-function playPattern(howMany){
-
-	var partSequence = sequence.slice(0, howMany);
-	lights(partSequence);
-}
-
-function compareUserSequence(clickedButton){
-	userSequence.push(clickedButton);
-	if (userSequence.join(',') === sequence.slice(0,count).join(',')){
-		console.log('good choice' + playPattern);
-		count = count + 1;
-		userSequence = [];
-		setTimeout(function(){
-			playPattern(count);
-		}, 800);
-		//playPattern(count);
-	} else console.log(userSequence.join(',') === sequence.slice(0,count).join(','));
-}
-
-
 
 document.getElementById("red").addEventListener("click", function(event){
 	event.preventDefault(); // prevents resize on iphone dblclick
 	lights(['red']);
-	compareUserSequence('red');
+	userSequence.push('red');
 	console.log('____ clicked');
 });
 document.getElementById("blue").addEventListener("click", function(event){
 	event.preventDefault(); // prevents resize on iphone dblclick
 	lights(['blue']);
-	compareUserSequence('blue');
+	userSequence.push('blue');
 	console.log('____ clicked');
 });
 document.getElementById("yellow").addEventListener("click", function(event){
 	event.preventDefault(); // prevents resize on iphone dblclick
 	lights(['yellow']);
-	compareUserSequence('yellow');
+	userSequence.push('yellow');
 	console.log('____ clicked');
 });
 document.getElementById("green").addEventListener("click", function(event){
 	event.preventDefault(); // prevents resize on iphone dblclick
 	lights(['green']);
-	compareUserSequence('green');
+	userSequence.push('green');
 	console.log('____ clicked');
 });
 document.getElementById("start").addEventListener("click", function(event){//start
@@ -132,3 +106,53 @@ document.getElementById("on-off").addEventListener("click", function(event){//on
 	console.log('on-off clicked');
 });
 		
+function initializeGame(){
+	sequence = makeSequence(3);//TODO change to 20 after done testing
+	count = 1;  //TODO change to 20 or one something else later
+	userSequence = [];
+	//console.log(sequence);
+	//console.log(userSequence);
+}
+function playPattern(howMany){ //where howMany is the portion of the sequence.  usu is count in global scope.
+	console.log('here');
+	lights(sequence.slice(0,howMany));
+	var timer = setTimeout(timesUp, 10000); //TODO write timeup func to handle both match or no match
+	var tester = setInterval(getUserSequence, 100);
+	function getUserSequence(){
+		console.log(userSequence);
+
+		//console.log(userSequence[0] + ' and  ' + sequence[0]);
+		
+		if (userSequence[0]){
+			for (var i = 0; i < userSequence.length; i++){
+				if (userSequence[i] != sequence[i]){
+					console.log('wrong color');
+					timesUp();
+				}
+			}
+		}
+		if (userSequence.join(',') === sequence.join(',')){
+			clearInterval(tester);
+			clearInterval(timer);
+			console.log(userSequence);
+			timesUp();
+		}
+	}
+	function timesUp(){
+		if (userSequence.join(',') === sequence.join(',')){
+			console.log('sucess!!!!');
+		}else {
+			if (user.sequence.join(',') === sequence.slice(0,count)){//should have join on rigt side too
+				count = count + 1;
+				console.log('times up' + count);
+				clearInterval(tester);
+				clearInterval(timer);
+				playPattern(count);
+			}
+		}
+	}
+	
+	
+}
+
+
